@@ -1,5 +1,6 @@
 package br.com.davi.guiche_api.service;
 
+import br.com.davi.guiche_api.dto.guiche.GuicheResponseDTO;
 import br.com.davi.guiche_api.model.Guiche;
 import br.com.davi.guiche_api.repository.GuicheRepository;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,14 @@ public class GuicheService {
     public GuicheService(GuicheRepository guicheRepository) {
         this.guicheRepository = guicheRepository;
     }
-
-    public List<Guiche> listarTodos() {
-        return guicheRepository.findAll();
+    public List<GuicheResponseDTO> listarTodos() {
+        return guicheRepository.findAll()
+                .stream()
+                .map(guiche -> new GuicheResponseDTO(
+                        guiche.getId(),
+                        guiche.getNome(),
+                        guiche.getAtivo()
+                ))
+                .toList();
     }
 }
