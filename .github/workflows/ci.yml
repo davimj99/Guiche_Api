@@ -1,0 +1,41 @@
+name: CI - Guiche API
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+      - "release/**"
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build e Testes
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: guiche-api
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '26'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Dar permissão ao Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Executar testes
+        run: ./mvnw test
+
+      - name: Gerar build
+        run: ./mvnw clean package -DskipTests
