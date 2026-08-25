@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/guiche-api.iml" filepath="$PROJECT_DIR$/.idea/guiche-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Guiche_Api.iml" filepath="$PROJECT_DIR$/.idea/Guiche_Api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/guiche-api/guiche-api.iml" filepath="$PROJECT_DIR$/guiche-api/guiche-api.iml" />
     </modules>
   </component>
 </project>
