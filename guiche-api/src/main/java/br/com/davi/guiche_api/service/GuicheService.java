@@ -21,12 +21,9 @@ public class GuicheService {
     public GuicheResponseDTO cadastrar(GuicheRequestDTO dto) {
 
         Guiche guiche = new Guiche();
-
         guiche.setNome(dto.getNome());
         guiche.setAtivo(true);
-
         Guiche salvo = guicheRepository.save(guiche);
-
         return new GuicheResponseDTO(
                 salvo.getId(),
                 salvo.getNome(),
@@ -49,11 +46,27 @@ public class GuicheService {
 
         Guiche guiche = guicheRepository.findById(id)
                 .orElseThrow(() -> new GuicheNaoEncontradoException(id));
-
         return new GuicheResponseDTO(
                 guiche.getId(),
                 guiche.getNome(),
                 guiche.isAtivo()
         );
+    }
+    public GuicheResponseDTO atualizar(Long id, GuicheRequestDTO dto) {
+        Guiche guiche = guicheRepository.findById(id)
+                .orElseThrow(() -> new GuicheNaoEncontradoException(id));
+        guiche.setNome(dto.getNome());
+        Guiche guicheAtualizado = guicheRepository.save(guiche);
+        return new GuicheResponseDTO(
+                guicheAtualizado.getId(),
+                guicheAtualizado.getNome(),
+                guicheAtualizado.isAtivo()
+        );
+    }
+    public void deletar(Long id) {
+        if (!guicheRepository.existsById(id)) {
+            throw new GuicheNaoEncontradoException(id);
+        }
+        guicheRepository.deleteById(id);
     }
 }
