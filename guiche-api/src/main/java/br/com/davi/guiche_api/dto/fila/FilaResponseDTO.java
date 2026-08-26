@@ -1,4 +1,9 @@
 package br.com.davi.guiche_api.dto.fila;
 
-public class FilaResponseDTO {
+public record FilaResponseDTO(
+        Long id,
+        String nome,
+        int numero,
+        boolean ativo
+) {
 }

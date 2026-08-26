@@ -1,8 +1,9 @@
 package br.com.davi.guiche_api.controller;
 
-import br.com.davi.guiche_api.model.Fila;
+import br.com.davi.guiche_api.dto.fila.FilaResponseDTO;
 import br.com.davi.guiche_api.service.FilaService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,11 +13,17 @@ public class FilaController {
 
     private final FilaService filaService;
 
-    public FilaController(FilaService filaService){
+    public FilaController(FilaService filaService) {
         this.filaService = filaService;
     }
+
     @GetMapping("/filas")
-    public List<Fila> listarTodos() {
+    public List<FilaResponseDTO> listarTodos() {
         return filaService.listarTodos();
+    }
+
+    @GetMapping("/filas/{id}")
+    public FilaResponseDTO buscarPorId(@PathVariable Long id) {
+        return filaService.buscarPorId(id);
     }
 }
