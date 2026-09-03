@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/filas")
 public class FilaController {
 
     private final FilaService filaService;
@@ -19,22 +20,30 @@ public class FilaController {
 
     @Operation(summary = "Listar fila",
             description = "Retorna todos as filas cadastradas no sistema.")
-    @GetMapping("/filas")
+    @GetMapping
     public List<FilaResponseDTO> listarTodos() {
         return filaService.listarTodos();
     }
 
+    @Operation(summary = "Buscar filas",
+            description = "Busca uma fila específica pelo seu ID")
+    @GetMapping("/{id}")
+    public FilaResponseDTO buscarPorId(@PathVariable Long id) {
+        return filaService.buscarPorId(id);
+    }
+
     @Operation(summary = "Cadastrar fila",
             description = "Cadastra uma nova fila no sistema.")
-    @PostMapping("/filas")
+    @PostMapping
     public FilaResponseDTO criar(@RequestBody FilaRequestDTO dto) {
         return filaService.criar(dto);
     }
 
-    @Operation(summary = "Buscar filas",
-            description = "Busca uma fila específica pelo seu ID")
-    @GetMapping("/filas/{id}")
-    public FilaResponseDTO buscarPorId(@PathVariable Long id) {
+    @Operation(summary = "Deletar fila",
+            description = "Deleta uma fila existente pelo seu id")
+    @DeleteMapping("/{id}")
+    public FilaResponseDTO deletar(@PathVariable Long id) {
+        filaService.deletar(id);
         return filaService.buscarPorId(id);
     }
 }
