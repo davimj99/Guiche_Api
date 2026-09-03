@@ -4,6 +4,8 @@ public record FilaResponseDTO(
         Long id,
         String nome,
         int numero,
+        String prefixo,
         boolean ativo
+
 ) {
 }
