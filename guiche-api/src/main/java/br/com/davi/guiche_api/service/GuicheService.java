@@ -3,7 +3,7 @@ package br.com.davi.guiche_api.service;
 import br.com.davi.guiche_api.dto.guiche.GuicheRequestDTO;
 import br.com.davi.guiche_api.dto.guiche.GuicheResponseDTO;
 import br.com.davi.guiche_api.exception.GuicheNaoEncontradoException;
-import br.com.davi.guiche_api.model.Guiche;
+import br.com.davi.guiche_api.entity.Guiche;
 import br.com.davi.guiche_api.repository.GuicheRepository;
 import org.springframework.stereotype.Service;
 
