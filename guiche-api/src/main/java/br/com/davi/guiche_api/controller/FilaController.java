@@ -4,11 +4,14 @@ import br.com.davi.guiche_api.dto.fila.FilaRequestDTO;
 import br.com.davi.guiche_api.dto.fila.FilaResponseDTO;
 import br.com.davi.guiche_api.service.FilaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@Tag(name = "FILAS")
 public class FilaController {
 
     private final FilaService filaService;

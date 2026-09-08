@@ -4,12 +4,15 @@ import br.com.davi.guiche_api.dto.guiche.GuicheRequestDTO;
 import br.com.davi.guiche_api.dto.guiche.GuicheResponseDTO;
 import br.com.davi.guiche_api.service.GuicheService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@Tag(name = "GUICHÊ")
 @RequestMapping("/guiches")
 public class GuicheController {
 
