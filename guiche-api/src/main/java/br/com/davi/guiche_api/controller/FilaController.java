@@ -4,13 +4,13 @@ import br.com.davi.guiche_api.dto.fila.FilaRequestDTO;
 import br.com.davi.guiche_api.dto.fila.FilaResponseDTO;
 import br.com.davi.guiche_api.service.FilaService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.ResponseEntity;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "FILAS")
 @RestController
-@RequestMapping("/filas")
 public class FilaController {
 
     private final FilaService filaService;
@@ -21,30 +21,22 @@ public class FilaController {
 
     @Operation(summary = "Listar fila",
             description = "Retorna todos as filas cadastradas no sistema.")
-    @GetMapping
+    @GetMapping("/filas")
     public List<FilaResponseDTO> listarTodos() {
         return filaService.listarTodos();
     }
 
-    @Operation(summary = "Buscar filas",
-            description = "Busca uma fila específica pelo seu ID")
-    @GetMapping("/{id}")
-    public FilaResponseDTO buscarPorId(@PathVariable Long id) {
-        return filaService.buscarPorId(id);
-    }
-
     @Operation(summary = "Cadastrar fila",
             description = "Cadastra uma nova fila no sistema.")
-    @PostMapping
+    @PostMapping("/filas")
     public FilaResponseDTO criar(@RequestBody FilaRequestDTO dto) {
         return filaService.criar(dto);
     }
 
-    @Operation(summary = "Deletar fila",
-            description = "Deleta uma fila existente pelo seu id")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        filaService.deletar(id);
-        return ResponseEntity.noContent().build();
+    @Operation(summary = "Buscar filas",
+            description = "Busca uma fila específica pelo seu ID")
+    @GetMapping("/filas/{id}")
+    public FilaResponseDTO buscarPorId(@PathVariable Long id) {
+        return filaService.buscarPorId(id);
     }
 }
