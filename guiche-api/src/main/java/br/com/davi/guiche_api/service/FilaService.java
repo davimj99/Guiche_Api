@@ -37,7 +37,6 @@ public class FilaService {
                 .orElseThrow(() ->
                         new FilaNaoEncontradaException("Fila não encontrada")
                 );
-
         return new FilaResponseDTO(
                 fila.getId(),
                 fila.getNome(),
@@ -49,14 +48,11 @@ public class FilaService {
     }
 
     public FilaResponseDTO criar(FilaRequestDTO dto) {
-
         Fila fila = new Fila();
-
         fila.setNome(dto.nome());
         fila.setNumero(dto.numero());
         fila.setAtivo(dto.ativo());
         fila.setPrefixo(dto.prefixo());
-
         Fila filaSalva = filaRepository.save(fila);
 
         return new FilaResponseDTO(
@@ -67,5 +63,11 @@ public class FilaService {
                 filaSalva.isAtivo()
 
         );
+    }
+    public void deletar(Long id) {
+        if (!filaRepository.existsById(id)) {
+            throw new FilaNaoEncontradaException(id);
+        }
+        filaRepository.deleteById(id);
     }
 }

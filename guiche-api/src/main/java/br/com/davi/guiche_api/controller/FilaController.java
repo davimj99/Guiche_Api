@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-@RestController
 @Tag(name = "FILAS")
+@RestController
 public class FilaController {
 
     private final FilaService filaService;
