@@ -19,22 +19,15 @@ public class AtendimentoService {
 
     public List<AtendimentoResponseDTO> listarTodos() {
 
-        return repository.findAll()
-                .stream()
-                .map(this::toResponseDTO)
-                .toList();
+        return repository.findAll().stream().map(this::toResponseDTO).toList();
     }
 
     public AtendimentoResponseDTO buscarPorId(Long id) {
-
-        Atendimento atendimento = repository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Atendimento não encontrado"));
-
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
         return toResponseDTO(atendimento);
     }
 
-    public AtendimentoResponseDTO criar(AtendimentoRequestDTO dto) {
+    public AtendimentoResponseDTO cadastrar(AtendimentoRequestDTO dto) {
 
         Atendimento atendimento = new Atendimento();
 
@@ -53,15 +46,29 @@ public class AtendimentoService {
 
     private AtendimentoResponseDTO toResponseDTO(Atendimento atendimento) {
 
-        return new AtendimentoResponseDTO(
-                atendimento.getId(),
-                atendimento.getInicio(),
-                atendimento.getFim(),
-                atendimento.getSenhaId(),
-                atendimento.getTipo(),
-                atendimento.getGuiche(),
-                atendimento.getAluno(),
-                atendimento.getAtendente()
-        );
+        return new AtendimentoResponseDTO(atendimento.getId(), atendimento.getInicio(), atendimento.getFim(), atendimento.getSenhaId(), atendimento.getTipo(), atendimento.getGuiche(), atendimento.getAluno(), atendimento.getAtendente());
+    }
+
+    public AtendimentoResponseDTO atualizar(Long id, AtendimentoRequestDTO dto) {
+
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
+
+        atendimento.setInicio(dto.inicio());
+        atendimento.setFim(dto.fim());
+        atendimento.setSenhaId(dto.senhaId());
+        atendimento.setTipo(dto.tipo());
+        atendimento.setGuiche(dto.guiche());
+        atendimento.setAluno(dto.aluno());
+        atendimento.setAtendente(dto.atendente());
+
+        Atendimento atualizado = repository.save(atendimento);
+
+        return toResponseDTO(atualizado);
+    }
+
+    public void deletar(Long id) {
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
+
+        repository.delete(atendimento);
     }
 }

@@ -10,22 +10,15 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDateTime inicio;
-
     private LocalDateTime fim;
 
     @Column(name = "senha_id")
     private Long senhaId;
-
     private String tipo;
-
     private Long guiche;
-
-    private Long aluno;
-
-    private Long atendente;
-
+    private String aluno;
+    private String atendente;
     public Atendimento() {
     }
 
@@ -73,19 +66,19 @@ public class Atendimento {
         this.guiche = guiche;
     }
 
-    public Long getAluno() {
+    public String getAluno() {
         return aluno;
     }
 
-    public void setAluno(Long aluno) {
+    public void setAluno(String aluno) {
         this.aluno = aluno;
     }
 
-    public Long getAtendente() {
+    public String getAtendente() {
         return atendente;
     }
 
-    public void setAtendente(Long atendente) {
+    public void setAtendente(String atendente) {
         this.atendente = atendente;
     }
 }

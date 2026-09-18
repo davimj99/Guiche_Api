@@ -9,7 +9,7 @@ public record AtendimentoResponseDTO(
         Long senhaId,
         String tipo,
         Long guiche,
-        Long aluno,
-        Long atendente
+        String aluno,
+        String atendente
 ) {
 }
