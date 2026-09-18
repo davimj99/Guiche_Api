@@ -5,6 +5,7 @@ import br.com.davi.guiche_api.dto.atendimento.AtendimentoResponseDTO;
 import br.com.davi.guiche_api.service.AtendimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,41 +25,38 @@ public class AtendimentoController {
     @Operation(summary = "Listar atendimentos",
             description = "Retorna todos os atendimentos registrados no sistema.")
     @GetMapping
-    public List<AtendimentoResponseDTO> listarTodos() {
-        return atendimentoService.listarTodos();
+    public ResponseEntity<List<AtendimentoResponseDTO>> listarTodos() {
+        return ResponseEntity.ok(atendimentoService.listarTodos());
     }
 
     @Operation(summary = "Buscar atendimento",
             description = "Busca um atendimento específico pelo seu ID.")
     @GetMapping("/{id}")
-    public AtendimentoResponseDTO buscarPorId(@PathVariable Long id) {
-        return atendimentoService.buscarPorId(id);
+    public ResponseEntity<AtendimentoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(atendimentoService.buscarPorId(id));
     }
 
     @Operation(summary = "Cadastrar atendimento",
             description = "Cadastra um novo atendimento no sistema.")
     @PostMapping
-    public AtendimentoResponseDTO cadastrar(
-            @RequestBody AtendimentoRequestDTO dto
-    ) {
-        return atendimentoService.cadastrar(dto);
+    public ResponseEntity<AtendimentoResponseDTO> cadastrar(@RequestBody AtendimentoRequestDTO dto) {
+        AtendimentoResponseDTO atendimento = atendimentoService.cadastrar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(atendimento);
     }
 
     @Operation(summary = "Atualizar atendimento",
             description = "Atualiza um atendimento existente pelo seu ID.")
     @PutMapping("/{id}")
-    public AtendimentoResponseDTO atualizar(
-            @PathVariable Long id,
-            @RequestBody AtendimentoRequestDTO dto
-    ) {
-        return atendimentoService.atualizar(id, dto);
+    public ResponseEntity<AtendimentoResponseDTO> atualizar(@PathVariable Long id,
+            @RequestBody AtendimentoRequestDTO dto) {
+        AtendimentoResponseDTO atendimento = atendimentoService.atualizar(id, dto);
+        return ResponseEntity.ok(atendimento);
     }
 
     @Operation(summary = "Deletar atendimento",
             description = "Deleta um atendimento existente pelo seu ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-
         atendimentoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
