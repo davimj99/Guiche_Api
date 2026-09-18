@@ -5,11 +5,11 @@ import br.com.davi.guiche_api.dto.guiche.GuicheResponseDTO;
 import br.com.davi.guiche_api.service.GuicheService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @Tag(name = "GUICHÊ")
@@ -25,32 +25,36 @@ public class GuicheController {
     @Operation(summary = "Listar guichês",
             description = "Retorna todos os guichês cadastrados no sistema.")
     @GetMapping
-    public List<GuicheResponseDTO> listarTodos() {
-        return guicheService.listarTodos();
+    public ResponseEntity<List<GuicheResponseDTO>> listarTodos() {
+        return ResponseEntity.ok(guicheService.listarTodos());
     }
 
     @Operation(summary = "Cadastrar guichê",
             description = "Cadastra um novo guichê no sistema.")
     @PostMapping
-    public GuicheResponseDTO cadastrar(@RequestBody GuicheRequestDTO dto) {
-        return guicheService.cadastrar(dto);
+    public ResponseEntity<GuicheResponseDTO> cadastrar(@RequestBody GuicheRequestDTO dto) {
+        GuicheResponseDTO guiche = guicheService.cadastrar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(guiche);
     }
 
     @Operation(summary = "Buscar guichê",
-            description = "Busca um guichê específico pelo seu ID")
+            description = "Busca um guichê específico pelo seu ID.")
     @GetMapping("/{id}")
-    public GuicheResponseDTO buscarPorId(@PathVariable Long id) {
-        return guicheService.buscarPorId(id);
+    public ResponseEntity<GuicheResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(guicheService.buscarPorId(id));
     }
 
     @Operation(summary = "Atualizar guichê",
-            description = "Atualiza o nome de um guichê existente pelo seu ID.")
+            description = "Atualiza um guichê existente pelo seu ID."
+    )
     @PutMapping("/{id}")
-    public GuicheResponseDTO atualizar(@PathVariable Long id, @RequestBody GuicheRequestDTO dto) {
-        return guicheService.atualizar(id, dto);
+    public ResponseEntity<GuicheResponseDTO> atualizar(@PathVariable Long id,
+            @RequestBody GuicheRequestDTO dto) {
+        GuicheResponseDTO guiche = guicheService.atualizar(id, dto);
+        return ResponseEntity.ok(guiche);
     }
 
-    @Operation(summary = "Deleta o guichê",
+    @Operation(summary = "Deletar guichê",
             description = "Deleta um guichê existente pelo seu ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
