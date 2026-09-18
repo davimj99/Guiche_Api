@@ -1,4 +1,15 @@
 package br.com.davi.guiche_api.dto.atendimento;
 
-public class AtendimentoResponseDTO {
+import java.time.LocalDateTime;
+
+public record AtendimentoResponseDTO(
+        Long id,
+        LocalDateTime inicio,
+        LocalDateTime fim,
+        Long senhaId,
+        String tipo,
+        Long guiche,
+        Long aluno,
+        Long atendente
+) {
 }
