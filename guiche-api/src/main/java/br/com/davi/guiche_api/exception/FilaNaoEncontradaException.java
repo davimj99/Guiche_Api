@@ -10,6 +10,6 @@ public class FilaNaoEncontradaException extends RuntimeException {
         super(mensagem);
     }
     public FilaNaoEncontradaException(Long id) {
-        super("fila não encontrada então pode ser deletada: " + id);
+        super("fila não encontrada: " + id);
     }
 }
