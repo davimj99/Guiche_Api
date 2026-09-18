@@ -3,6 +3,7 @@ package br.com.davi.guiche_api.service;
 import br.com.davi.guiche_api.dto.atendimento.AtendimentoRequestDTO;
 import br.com.davi.guiche_api.dto.atendimento.AtendimentoResponseDTO;
 import br.com.davi.guiche_api.entity.Atendimento;
+import br.com.davi.guiche_api.exception.AtendimentoNaoEncontradoException;
 import br.com.davi.guiche_api.repository.AtendimentoRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class AtendimentoService {
     }
 
     public AtendimentoResponseDTO buscarPorId(Long id) {
-        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new AtendimentoNaoEncontradoException(id));
         return toResponseDTO(atendimento);
     }
 
@@ -46,12 +47,20 @@ public class AtendimentoService {
 
     private AtendimentoResponseDTO toResponseDTO(Atendimento atendimento) {
 
-        return new AtendimentoResponseDTO(atendimento.getId(), atendimento.getInicio(), atendimento.getFim(), atendimento.getSenhaId(), atendimento.getTipo(), atendimento.getGuiche(), atendimento.getAluno(), atendimento.getAtendente());
+        return new AtendimentoResponseDTO(
+                atendimento.getId(),
+                atendimento.getInicio(),
+                atendimento.getFim(),
+                atendimento.getSenhaId(),
+                atendimento.getTipo(),
+                atendimento.getGuiche(),
+                atendimento.getAluno(),
+                atendimento.getAtendente());
     }
 
     public AtendimentoResponseDTO atualizar(Long id, AtendimentoRequestDTO dto) {
 
-        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new AtendimentoNaoEncontradoException(id));
 
         atendimento.setInicio(dto.inicio());
         atendimento.setFim(dto.fim());
@@ -67,7 +76,7 @@ public class AtendimentoService {
     }
 
     public void deletar(Long id) {
-        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new RuntimeException("Atendimento não encontrado"));
+        Atendimento atendimento = repository.findById(id).orElseThrow(() -> new AtendimentoNaoEncontradoException(id));
 
         repository.delete(atendimento);
     }
