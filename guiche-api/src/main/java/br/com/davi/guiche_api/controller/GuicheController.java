@@ -49,16 +49,18 @@ public class GuicheController {
     )
     @PutMapping("/{id}")
     public ResponseEntity<GuicheResponseDTO> atualizar(@PathVariable Long id,
-            @RequestBody GuicheRequestDTO dto) {
+                                                       @RequestBody GuicheRequestDTO dto) {
         GuicheResponseDTO guiche = guicheService.atualizar(id, dto);
         return ResponseEntity.ok(guiche);
     }
 
-    @Operation(summary = "Deletar guichê",
-            description = "Deleta um guichê existente pelo seu ID.")
+    @Operation(
+            summary = "Desativar guichê",
+            description = "Desativa um guichê existente pelo seu ID."
+    )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        guicheService.deletar(id);
+    public ResponseEntity<Void> desativar(@PathVariable Long id) {
+        guicheService.desativar(id);
         return ResponseEntity.noContent().build();
     }
 }
