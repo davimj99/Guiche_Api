@@ -40,8 +40,10 @@ jobs:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      API_AUTH_USERNAME: ci-test-user
+      API_AUTH_PASSWORD: ci-test-password-temporaria
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
       - name: Checkout do código

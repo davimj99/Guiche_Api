@@ -63,10 +63,12 @@ public class GuicheService {
                 guicheAtualizado.isAtivo()
         );
     }
-    public void deletar(Long id) {
-        if (!guicheRepository.existsById(id)) {
-            throw new GuicheNaoEncontradoException(id);
-        }
-        guicheRepository.deleteById(id);
+    public void desativar(Long id) {
+        Guiche guiche = guicheRepository.findById(id)
+                .orElseThrow(() -> new GuicheNaoEncontradoException(id));
+
+        guiche.setAtivo(false);
+
+        guicheRepository.save(guiche);
     }
 }

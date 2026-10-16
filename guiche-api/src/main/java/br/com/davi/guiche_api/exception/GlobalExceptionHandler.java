@@ -13,4 +13,18 @@ public class GlobalExceptionHandler {
     public String handleGuicheNaoEncontrado(GuicheNaoEncontradoException ex) {
         return ex.getMessage();
     }
+
+    @ExceptionHandler(FilaNaoEncontradaException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleFilaNaoEncontrada(FilaNaoEncontradaException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(AtendimentoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleAtendimentoNaoEncontrado(
+            AtendimentoNaoEncontradoException ex) {
+
+        return ex.getMessage();
+    }
 }

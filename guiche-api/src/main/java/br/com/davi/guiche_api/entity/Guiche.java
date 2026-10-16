@@ -1,10 +1,8 @@
 package br.com.davi.guiche_api.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Table(name = "accounts_guiche")
 @Entity
 public class Guiche {
 
