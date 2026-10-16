@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "GUICHÊ")
+@Tag(name = "3 - GUICHÊ")
 @RequestMapping("/guiches")
 public class GuicheController {
 
